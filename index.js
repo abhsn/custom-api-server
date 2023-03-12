@@ -14,6 +14,10 @@ app.get('/', (_, res) => {
 	res.send('Up and running...')
 })
 
+app.get('/all-user', (_, res) => {
+	User.find({}).then(result => res.send(result))
+})
+
 app.post('/new-user', (req, res) => {
 	const user = new User(req.body)
 	user.save().then(response => {
