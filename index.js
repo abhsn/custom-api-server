@@ -29,4 +29,15 @@ app.post('/new-user', (req, res) => {
 	})
 })
 
+app.patch('/user/:id', (req, res) => {
+	User.findOneAndUpdate(req.params.id, req.body, { upsert: true })
+		.then(response => {
+			if (response._id) {
+				res.json({ success: true })
+			} else {
+				res.json({ success: false })
+			}
+		})
+})
+
 app.listen(process.env.PORT || 5000, () => console.log(`Running on port ${process.env.PORT || 5000}`))
